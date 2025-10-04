@@ -5,20 +5,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainController {
-    @FXML
-    private Label welcomeText;
+public class ProgrammingLanguagesController {
+
     private Stage stage;
 
     @FXML
-    protected void defineProgrammingLanguagesClick(ActionEvent event) throws IOException {
-        //welcomeText.setText("Welcome to JavaFX Application!");
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("programmingLanguages.fxml"));
+    void homeButtonClicked(ActionEvent event) throws IOException {
+        //System.out.println("");
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("homepage.fxml"));
         //Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         Scene scene = new Scene(fxmlLoader.load());
         stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
@@ -26,5 +24,5 @@ public class MainController {
         stage.show();
     }
 
-
 }
+
