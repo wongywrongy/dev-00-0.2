@@ -1,16 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs151.application.ProgrammingLanguagesController">
-   <children>
-      <Label layoutX="41.0" layoutY="81.0" text="Programming Languages" />
-      <Line endX="485.0" layoutX="115.0" layoutY="58.0" startX="-115.0" />
-      <Button layoutX="467.0" layoutY="22.0" mnemonicParsing="false" onAction="#homeButtonClicked" prefHeight="26.0" prefWidth="51.0" text="Home" />
-      <TextField layoutX="41.0" layoutY="136.0" />
-   </children>
-</AnchorPane>
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="cs151.application.ProgrammingLanguagesController"
+            prefWidth="600" prefHeight="420">
+
+    <top>
+        <HBox spacing="10">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+            <children>
+                <Label text="Programming Languages" style="-fx-font-size:18;-fx-font-weight:bold;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="Home" onAction="#homeButtonClicked"/>
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="8">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+            <children>
+                <Label text="Enter a language (or comma-separated), then press Enter or click Save:"/>
+                <TextField fx:id="txtLanguage" onAction="#saveLanguages"/>
+
+                <HBox spacing="8">
+                    <children>
+                        <Button text="Save" onAction="#saveLanguages"/>
+                        <Label text="Saved languages:"/>
+                    </children>
+                </HBox>
+
+                <TableView fx:id="tblLanguages" prefHeight="220">
+                    <columns>
+                        <TableColumn fx:id="colName" text="Language" prefWidth="560"/>
+                    </columns>
+                </TableView>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>
