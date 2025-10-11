@@ -38,7 +38,8 @@ public class ProgrammingLanguagesController {
         if (!names.isEmpty()) {
             for (String n : names) {
                 boolean exists = languages.stream().anyMatch(s -> s.equalsIgnoreCase(n));
-                if (!exists) languages.add(n);
+                if (!exists) 
+                    languages.add(n);
             }
             languages.sort(Comparator.comparing(String::toLowerCase));
             txtLanguage.clear();
@@ -54,11 +55,13 @@ public class ProgrammingLanguagesController {
     
     private static List<String> parseNames(String raw) {
         List<String> out = new ArrayList<>();
-        if (raw == null) return out;
+        if (raw == null) 
+            return out;
         String[] tokens = raw.split(",");
         for (String t : tokens) {
             String s = t.trim().replaceAll("\\s+", " ");
-            if (!s.isEmpty()) out.add(s);
+            if (!s.isEmpty()) 
+                out.add(s);
         }
         return out;
     }
