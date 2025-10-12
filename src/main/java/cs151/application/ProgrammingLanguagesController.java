@@ -58,6 +58,8 @@ public class ProgrammingLanguagesController {
 
     // Turn the text field into correct names by split the comma
     // trim spaces, and ignore empty spaces
+    // @param the raw text from TextField
+    // @return list of cleaned language names
     private static List<String> parseNames(String raw) {
         List<String> out = new ArrayList<>();
         if (raw == null) 
