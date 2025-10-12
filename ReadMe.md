@@ -1,11 +1,11 @@
 # Name of application: Student Profile Manager
-# Version: 0.2
+# Version: 0.3
 
 # who did what:
-1. Anton: Remade the homepage fxml file.
-2. Kyle: Implemented the homepage button that goes to the programming language page.
-3. Sofia: Created the new fxml file for the programming language page.
-4. Viet: Implemented the button on the programming language page that sends the user back to the homepage.
+1. Anton: Cleaned up the code and added javadoc comments.
+2. Kyle: Redesigned the programmingLanguages.fmxl page.
+3. Sofia: Added javadoc comments
+4. Viet: Reimplemented the programming language page to have the functionality of saving to a TableView.
 
 
 # Any other instruction that users need to know:

@@ -82,9 +82,7 @@ public class ProgrammingLanguagesController {
      */
     @FXML
     void homeButtonClicked(ActionEvent event) throws IOException {
-        //System.out.println("");
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("homepage.fxml"));
-        //Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         Scene scene = new Scene(fxmlLoader.load());
         stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
         stage.setScene(scene);
