@@ -73,6 +73,11 @@ public class ProgrammingLanguagesController {
 
     private Stage stage;
 
+    /**
+     * Switches the page to the home screen.
+     * @param event The information of the action that took place.
+     * @throws IOException
+     */
     @FXML
     void homeButtonClicked(ActionEvent event) throws IOException {
         //System.out.println("");

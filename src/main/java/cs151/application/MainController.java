@@ -15,6 +15,11 @@ public class MainController {
     private Label welcomeText;
     private Stage stage;
 
+    /**
+     * Switches the page to the programming languages screen.
+     * @param event The information of the action that took place.
+     * @throws IOException
+     */
     @FXML
     protected void defineProgrammingLanguagesClick(ActionEvent event) throws IOException {
         //welcomeText.setText("Welcome to JavaFX Application!");
