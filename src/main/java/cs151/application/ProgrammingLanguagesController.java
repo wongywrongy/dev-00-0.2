@@ -27,12 +27,15 @@ public class ProgrammingLanguagesController {
 
     private static final List<String> languages = new ArrayList<>();
 
+    // When the programming page start, set up the table and load current data
     @FXML
     public void initialize() {
         colName.setCellValueFactory(cell -> new ReadOnlyStringWrapper(cell.getValue()));
         refreshTable();
     }
 
+    // When enter or save clicked: add new names, skip duplicates, sort A->Z,
+    // clear the text field box and refresh tableview
     public void saveLanguages(ActionEvent event) {
         List<String> names = parseNames(txtLanguage.getText());
         if (!names.isEmpty()) {
@@ -47,12 +50,14 @@ public class ProgrammingLanguagesController {
         }
     }
 
+    // Rebuild the table from current list
     private void refreshTable() {
         ObservableList<String> data = FXCollections.observableArrayList(languages);
         tblLanguages.setItems(data);
     }
 
-    
+    // Turn the text field into correct names by split the comma
+    // trim spaces, and ignore empty spaces
     private static List<String> parseNames(String raw) {
         List<String> out = new ArrayList<>();
         if (raw == null) 
