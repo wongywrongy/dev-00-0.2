@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class ProgrammingLanguagesController {
@@ -24,8 +23,6 @@ public class ProgrammingLanguagesController {
     @FXML private TextField txtLanguage;                 
     @FXML private TableView<String> tblLanguages;
     @FXML private TableColumn<String, String> colName;
-
-    private static final List<String> languages = new ArrayList<>();
 
     // When the programming page start, set up the table and load current data
     @FXML
@@ -40,11 +37,8 @@ public class ProgrammingLanguagesController {
         List<String> names = parseNames(txtLanguage.getText());
         if (!names.isEmpty()) {
             for (String n : names) {
-                boolean exists = languages.stream().anyMatch(s -> s.equalsIgnoreCase(n));
-                if (!exists) 
-                    languages.add(n);
+                LanguageDatabase.addLanguage(n);
             }
-            languages.sort(Comparator.comparing(String::toLowerCase));
             txtLanguage.clear();
             refreshTable();
         }
@@ -52,7 +46,7 @@ public class ProgrammingLanguagesController {
 
     // Rebuild the table from current list
     private void refreshTable() {
-        ObservableList<String> data = FXCollections.observableArrayList(languages);
+        ObservableList<String> data = FXCollections.observableArrayList(LanguageDatabase.getAllLanguages());
         tblLanguages.setItems(data);
     }
 
