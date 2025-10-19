@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="cs151.application.StudentProfilesListController">
+
+    <top>
+        <ToolBar>
+            <items>
+                <Button text="← Define Profiles" onAction="#goDefineProfiles"/>
+                <Separator orientation="VERTICAL"/>
+                <Label text="All Student Profiles" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <Pane HBox.hgrow="ALWAYS"/>
+                <Button text="Home" onAction="#homeButtonClicked"/>
+            </items>
+        </ToolBar>
+    </top>
+
+    <center>
+        <VBox spacing="8">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <children>
+                <TableView fx:id="tblProfiles" prefHeight="560">
+                    <columns>
+                        <TableColumn fx:id="colName" text="Full Name" prefWidth="180"/>
+                        <TableColumn fx:id="colAcademic" text="Academic Status" prefWidth="120"/>
+                        <TableColumn fx:id="colEmployed" text="Employed" prefWidth="95"/>
+                        <TableColumn fx:id="colJob" text="Job Details" prefWidth="170"/>
+                        <TableColumn fx:id="colLanguages" text="Languages" prefWidth="220"/>
+                        <TableColumn fx:id="colDatabases" text="Databases" prefWidth="170"/>
+                        <TableColumn fx:id="colRole" text="Preferred Role" prefWidth="140"/>
+                        <TableColumn fx:id="colFlags" text="Flags" prefWidth="110"/>
+                        <TableColumn fx:id="colComments" text="Latest Comment" prefWidth="260"/>
+                    </columns>
+                </TableView>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>
