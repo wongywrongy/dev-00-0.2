@@ -7,14 +7,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class StudentDatabase {
     private static final String DB_PATH =
             Paths.get(System.getProperty("user.dir"), "lib", "languages.db").toString();
     private static final String URL = "jdbc:sqlite:" + DB_PATH;
 
+
     static {
         try (Connection c = DriverManager.getConnection(URL);
              Statement s = c.createStatement()) {
+
 
             s.execute("""
                 CREATE TABLE IF NOT EXISTS students (
@@ -31,6 +34,7 @@ public class StudentDatabase {
                 )
             """);
 
+
             s.execute("""
                 CREATE TABLE IF NOT EXISTS student_languages (
                   student_id INTEGER NOT NULL,
@@ -41,10 +45,13 @@ public class StudentDatabase {
             """);
 
 
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     public static boolean existsByName(String rawName) {
         String name = rawName == null ? "" : rawName.trim();
@@ -60,9 +67,17 @@ public class StudentDatabase {
         }
     }
 
-    public static boolean addStudentProfile(String rawName, String academicStatus, boolean employed, String jobDetails,
-                                            List<String> languages, List<String> databases, String preferredRole,
-                                            boolean whitelist, boolean blacklist, String initialCommentIfAny) {
+
+    public static boolean addStudentProfile(String rawName,
+                                            String academicStatus,
+                                            boolean employed,
+                                            String jobDetails,
+                                            List<String> languages,
+                                            List<String> databases,
+                                            String preferredRole,
+                                            boolean whitelist,
+                                            boolean blacklist,
+                                            String initialCommentIfAny) {
         String name = rawName == null ? "" : rawName.trim();
         if (name.isEmpty()) return false;
         if (whitelist && blacklist) return false;
@@ -91,11 +106,13 @@ public class StudentDatabase {
                 ps.setString(9, now);
                 ps.executeUpdate();
 
+
                 int studentId;
                 try (ResultSet keys = ps.getGeneratedKeys()) {
                     if (!keys.next()) throw new SQLException("No generated key for student");
                     studentId = keys.getInt(1);
                 }
+
 
                 try (PreparedStatement psLang = c.prepareStatement(
                         "INSERT INTO student_languages(student_id, language_name) VALUES (?, ?)")) {
@@ -120,6 +137,9 @@ public class StudentDatabase {
                     }
                 }
 
+
+
+
                 c.commit();
                 return true;
             } catch (SQLException e) {
@@ -135,7 +155,7 @@ public class StudentDatabase {
     }
 
 
-    private static String getComment(Connection c, int studentId) throws SQLException {
+    private static String getLatestComment(Connection c, int studentId) throws SQLException {
         final String sql = """
             SELECT content
             FROM student_comments
@@ -170,7 +190,7 @@ public class StudentDatabase {
                 boolean whitelist = rs.getInt("whitelist") == 1;
                 boolean blacklist = rs.getInt("blacklist") == 1;
 
-                // languages (sorted case-insensitive)
+                
                 List<String> langs = new ArrayList<>();
                 try (PreparedStatement ps = c.prepareStatement(
                         "SELECT language_name FROM student_languages WHERE student_id=? ORDER BY LOWER(language_name)")) {
@@ -180,12 +200,13 @@ public class StudentDatabase {
                     }
                 }
 
+
                 List<String> dbs = dbCsv == null || dbCsv.isBlank()
                         ? List.of()
                         : Arrays.stream(dbCsv.split("\\s*,\\s*")).toList();
 
 
-                String latestComment = getComment(c, id);
+                String latestComment = getLatestComment(c, id);
 
                 out.add(new StudentProfile(
                         id, fullName, academic, employed, job, langs, dbs, role, whitelist, blacklist, latestComment
