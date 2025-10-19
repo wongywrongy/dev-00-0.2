@@ -10,19 +10,25 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainController {
-    @FXML
+
     private Stage stage;
 
-    /**
-     * Switches the page to the programming languages screen.
-     * @param event The information of the action that took place.
-     * @throws IOException
-     */
+
     @FXML
     protected void defineProgrammingLanguagesClick(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("programmingLanguages.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
+    @FXML
+    protected void defineStudentProfilesClick(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("studentProfiles.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
