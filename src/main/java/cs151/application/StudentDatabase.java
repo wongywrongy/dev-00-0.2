@@ -177,7 +177,7 @@ public class StudentDatabase {
                 boolean whitelist = rs.getInt("whitelist") == 1;
                 boolean blacklist = rs.getInt("blacklist") == 1;
 
-                // languages (sorted case-insensitive)
+
                 List<String> langs = new ArrayList<>();
                 try (PreparedStatement ps = c.prepareStatement(
                         "SELECT language_name FROM student_languages WHERE student_id=? ORDER BY LOWER(language_name)")) {
@@ -191,7 +191,7 @@ public class StudentDatabase {
                         ? List.of()
                         : Arrays.stream(dbCsv.split("\\s*,\\s*")).toList();
 
-                // NEW: latest comment preview
+
                 String latestComment = getLatestComment(c, id);
 
                 out.add(new StudentProfile(
