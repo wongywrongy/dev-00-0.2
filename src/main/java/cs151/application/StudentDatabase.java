@@ -7,17 +7,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 public class StudentDatabase {
     private static final String DB_PATH =
-            Paths.get(System.getProperty("user.dir"), "lib", "languages.db").toString();
+            Paths.get(System.getProperty("user.dir"), "lib", "students.db").toString();
     private static final String URL = "jdbc:sqlite:" + DB_PATH;
-
 
     static {
         try (Connection c = DriverManager.getConnection(URL);
              Statement s = c.createStatement()) {
-
 
             s.execute("""
                 CREATE TABLE IF NOT EXISTS students (
@@ -34,7 +31,6 @@ public class StudentDatabase {
                 )
             """);
 
-
             s.execute("""
                 CREATE TABLE IF NOT EXISTS student_languages (
                   student_id INTEGER NOT NULL,
@@ -45,13 +41,10 @@ public class StudentDatabase {
             """);
 
 
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
 
     public static boolean existsByName(String rawName) {
         String name = rawName == null ? "" : rawName.trim();
@@ -66,7 +59,6 @@ public class StudentDatabase {
             return false;
         }
     }
-
 
     public static boolean addStudentProfile(String rawName,
                                             String academicStatus,
@@ -106,13 +98,11 @@ public class StudentDatabase {
                 ps.setString(9, now);
                 ps.executeUpdate();
 
-
                 int studentId;
                 try (ResultSet keys = ps.getGeneratedKeys()) {
                     if (!keys.next()) throw new SQLException("No generated key for student");
                     studentId = keys.getInt(1);
                 }
-
 
                 try (PreparedStatement psLang = c.prepareStatement(
                         "INSERT INTO student_languages(student_id, language_name) VALUES (?, ?)")) {
@@ -136,9 +126,6 @@ public class StudentDatabase {
                         psC.executeUpdate();
                     }
                 }
-
-
-
 
                 c.commit();
                 return true;
@@ -190,7 +177,7 @@ public class StudentDatabase {
                 boolean whitelist = rs.getInt("whitelist") == 1;
                 boolean blacklist = rs.getInt("blacklist") == 1;
 
-                
+                // languages (sorted case-insensitive)
                 List<String> langs = new ArrayList<>();
                 try (PreparedStatement ps = c.prepareStatement(
                         "SELECT language_name FROM student_languages WHERE student_id=? ORDER BY LOWER(language_name)")) {
@@ -200,12 +187,11 @@ public class StudentDatabase {
                     }
                 }
 
-
                 List<String> dbs = dbCsv == null || dbCsv.isBlank()
                         ? List.of()
                         : Arrays.stream(dbCsv.split("\\s*,\\s*")).toList();
 
-
+                // NEW: latest comment preview
                 String latestComment = getLatestComment(c, id);
 
                 out.add(new StudentProfile(
