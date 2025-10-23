@@ -33,5 +33,12 @@ public class MainController {
         stage.show();
     }
 
-
+    @FXML
+    protected void searchStudentProfilesClick(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("studentProfilesList.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
 }

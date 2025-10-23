@@ -1,45 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="cs151.application.MainController">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="260.0" prefWidth="552.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="cs151.application.MainController">
 
     <top>
         <VBox spacing="6">
             <padding>
-                <Insets top="12" right="12" bottom="12" left="12"/>
+                <Insets bottom="12" left="12" right="12" top="12" />
             </padding>
             <children>
-                <Label text="Student Profile Manager"
-                       style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
-                <Label text="Home"
-                       style="-fx-font-size: 12px; -fx-text-fill: -fx-text-inner-color;"/>
-                <Separator/>
+                <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Student Profile Manager" />
+                <Label style="-fx-font-size: 12px; -fx-text-fill: -fx-text-inner-color;" text="Home" />
+                <Separator />
             </children>
         </VBox>
     </top>
 
     <center>
-        <VBox spacing="18" alignment="CENTER">
+        <VBox alignment="CENTER" spacing="18">
             <padding>
-                <Insets top="24" right="24" bottom="24" left="24"/>
+                <Insets bottom="24" left="24" right="24" top="24" />
             </padding>
             <children>
-                <Label text="Choose an action:" style="-fx-font-size: 14px;"/>
+                <Label style="-fx-font-size: 14px;" text="Choose an action:" />
 
-                <HBox spacing="12" alignment="CENTER">
+                <HBox alignment="CENTER" spacing="12">
                     <children>
-                        <Button text="Define Programming Languages"
-                                prefWidth="260"
-                                onAction="#defineProgrammingLanguagesClick"/>
-                        <Button text="Define Student Profiles"
-                                prefWidth="220"
-                                onAction="#defineStudentProfilesClick"/>
+                        <Button onAction="#defineProgrammingLanguagesClick" prefWidth="260" text="Define Programming Languages" />
+                        <Button onAction="#defineStudentProfilesClick" prefWidth="220" text="Define Student Profiles" />
                     </children>
                 </HBox>
+            <Button onAction="#searchStudentProfilesClick" mnemonicParsing="false" prefHeight="26.0" prefWidth="221.0" text="Search Student Profiles" />
             </children>
         </VBox>
     </center>
@@ -47,12 +45,12 @@
     <bottom>
         <HBox alignment="CENTER_RIGHT">
             <padding>
-                <Insets top="8" right="8" bottom="8" left="8"/>
+                <Insets bottom="8" left="8" right="8" top="8" />
             </padding>
         </HBox>
     </bottom>
 
     <padding>
-        <Insets top="6" right="6" bottom="6" left="6"/>
+        <Insets bottom="6" left="6" right="6" top="6" />
     </padding>
 </BorderPane>
