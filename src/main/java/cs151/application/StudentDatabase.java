@@ -8,9 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class StudentDatabase {
-    private static final String DB_PATH =
-            Paths.get(System.getProperty("user.dir"), "lib", "students.db").toString();
-    private static final String URL = "jdbc:sqlite:" + DB_PATH;
+    private static final Path DB_DIR = Paths.get(System.getProperty("user.dir"), "lib");
+    private static final String DB_FILE = "database.db";
+    private static final String URL = "jdbc:sqlite:" + DB_DIR.resolve(DB_FILE);
 
     static {
         try (Connection c = DriverManager.getConnection(URL);
