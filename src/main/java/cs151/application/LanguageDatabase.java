@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LanguageDatabase {
-    private static final String DB_PATH = "lib/languages.db";
-    private static final String URL = "jdbc:sqlite:" + DB_PATH;
+    private static final Path DB_DIR = Paths.get(System.getProperty("user.dir"), "lib");
+    private static final String DB_FILE = "database.db";
+    private static final String URL = "jdbc:sqlite:" + DB_DIR.resolve(DB_FILE);
 
     // Initialize database and create table if it doesn't exist
     static {
