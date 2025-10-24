@@ -142,6 +142,38 @@ public class StudentDatabase {
         }
     }
 
+    public static void deleteStudentInDatabase(int studentID) {
+        String deleteFromStudentDatabase = """
+            DELETE FROM students
+            WHERE id = (?)
+        """;
+        String deleteFromStudentLanguages = """
+            DELETE FROM student_languages
+            WHERE student_id = (?)
+        """;
+        String deleteFromStudentComments = """
+            DELETE FROM student_comments
+            WHERE student_id = (?)
+        """;
+        try {
+            Connection c = DriverManager.getConnection(URL);
+            PreparedStatement ps = c.prepareStatement(deleteFromStudentDatabase);
+
+            ps.setInt(1, studentID);
+            ps.executeUpdate();
+
+            ps = c.prepareStatement(deleteFromStudentLanguages);
+            ps.setInt(1, studentID);
+            ps.executeUpdate();
+
+            ps = c.prepareStatement(deleteFromStudentComments);
+            ps.setInt(1, studentID);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private static String getLatestComment(Connection c, int studentId) throws SQLException {
         final String sql = """

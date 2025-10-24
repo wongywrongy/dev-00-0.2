@@ -76,4 +76,22 @@ public class StudentProfilesListController {
         stage.setScene(scene);
         stage.show();
     }
+
+
+    @FXML
+    protected void deleteSelectedStudent(ActionEvent event) {
+        StudentProfile studentToDelete = tblProfiles.getSelectionModel().getSelectedItem();
+
+        if (studentToDelete == null) {
+            System.out.println("select a student to delete please");
+            return;
+        }
+
+        System.out.println("Student Name: " + studentToDelete.getFullName());
+        System.out.println("Student ID: " + studentToDelete.getId());
+
+        tblProfiles.getItems().remove(studentToDelete);
+
+        StudentDatabase.deleteStudentInDatabase(studentToDelete.getId());
+    }
 }

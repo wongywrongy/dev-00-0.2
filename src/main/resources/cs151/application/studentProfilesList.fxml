@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="cs151.application.StudentProfilesListController">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs151.application.StudentProfilesListController">
 
     <top>
         <ToolBar>
             <items>
-                <Button text="← Define Profiles" onAction="#goDefineProfiles"/>
-                <Separator orientation="VERTICAL"/>
-                <Label text="All Student Profiles" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
-                <Pane HBox.hgrow="ALWAYS"/>
-                <Button text="Home" onAction="#homeButtonClicked"/>
+                <Button onAction="#goDefineProfiles" text="← Define Profiles" />
+                <Separator orientation="VERTICAL" />
+                <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="All Student Profiles" />
+                <Pane HBox.hgrow="ALWAYS" />
+                <Button onAction="#homeButtonClicked" text="Home" />
             </items>
         </ToolBar>
     </top>
@@ -22,22 +30,24 @@
     <center>
         <VBox spacing="8">
             <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
+                <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
             <children>
-                <TableView fx:id="tblProfiles" prefHeight="560">
+                <TableView fx:id="tblProfiles" prefHeight="560.0" prefWidth="1058.0">
                     <columns>
-                        <TableColumn fx:id="colName" text="Full Name" prefWidth="180"/>
-                        <TableColumn fx:id="colAcademic" text="Academic Status" prefWidth="120"/>
-                        <TableColumn fx:id="colEmployed" text="Employed" prefWidth="95"/>
-                        <TableColumn fx:id="colJob" text="Job Details" prefWidth="170"/>
-                        <TableColumn fx:id="colLanguages" text="Languages" prefWidth="220"/>
-                        <TableColumn fx:id="colDatabases" text="Databases" prefWidth="170"/>
-                        <TableColumn fx:id="colRole" text="Preferred Role" prefWidth="140"/>
-                        <TableColumn fx:id="colFlags" text="Flags" prefWidth="110"/>
-                        <TableColumn fx:id="colComments" text="Latest Comment" prefWidth="260"/>
+                        <TableColumn fx:id="colName" prefWidth="180" text="Full Name" />
+                        <TableColumn fx:id="colAcademic" prefWidth="120" text="Academic Status" />
+                        <TableColumn fx:id="colEmployed" prefWidth="95" text="Employed" />
+                        <TableColumn fx:id="colJob" prefWidth="170" text="Job Details" />
+                        <TableColumn fx:id="colLanguages" prefWidth="220" text="Languages" />
+                        <TableColumn fx:id="colDatabases" prefWidth="170" text="Databases" />
+                        <TableColumn fx:id="colRole" prefWidth="140" text="Preferred Role" />
+                        <TableColumn fx:id="colFlags" prefWidth="110" text="Flags" />
+                        <TableColumn fx:id="colComments" prefWidth="260" text="Latest Comment" />
                     </columns>
                 </TableView>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select a row and click the button below to delete a student" wrappingWidth="319.853515625" />
+            <Button mnemonicParsing="false" onAction="#deleteSelectedStudent" prefHeight="26.0" prefWidth="150.0" text="Delete Selected Student" />
             </children>
         </VBox>
     </center>
