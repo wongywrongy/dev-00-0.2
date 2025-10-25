@@ -12,6 +12,8 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudentProfilesListController {
 
@@ -26,6 +28,9 @@ public class StudentProfilesListController {
     @FXML private TableColumn<StudentProfile, String> colFlags;
     @FXML private TableColumn<StudentProfile, String> colComments;
 
+    // Search control
+    @FXML private TextField txtSearch;
+    @FXML private Label lblResultCount;
 
     private final ObservableList<StudentProfile> master = FXCollections.observableArrayList();
 
@@ -53,6 +58,79 @@ public class StudentProfilesListController {
     @FXML
     private void refresh() {
         master.setAll(StudentDatabase.getAllProfilesSorted());
+        lblResultCount.setText("Total: " + master.size());
+    }
+
+    @FXML
+    private void applyFilters() {
+        String searchTerm = txtSearch.getText();
+        
+        if (searchTerm == null || searchTerm.isEmpty()) {
+            refresh();
+            return;
+        }
+        
+        String searchLower = searchTerm.toLowerCase();
+        List<StudentProfile> allProfiles = StudentDatabase.getAllProfilesSorted();
+        List<StudentProfile> filteredList = new ArrayList<>();
+
+        for (StudentProfile profile : allProfiles) {
+            boolean matches = false;
+
+            // Search in name
+            if (profile.getFullName().toLowerCase().contains(searchLower)) {
+                matches = true;
+            }
+
+            // Search in academic status
+            if (profile.getAcademicStatus().toLowerCase().contains(searchLower)) {
+                matches = true;
+            }
+
+            // Search in job details
+            if (profile.getJobDetails() != null && profile.getJobDetails().toLowerCase().contains(searchLower)) {
+                matches = true;
+            }
+
+            // Search in programming languages
+            for (String lang : profile.getLanguages()) {
+                if (lang.toLowerCase().contains(searchLower)) {
+                    matches = true;
+                    break;
+                }
+            }
+
+            // Search in databases
+            for (String db : profile.getDatabases()) {
+                if (db.toLowerCase().contains(searchLower)) {
+                    matches = true;
+                    break;
+                }
+            }
+
+            // Search in preferred role
+            if (profile.getPreferredRole().toLowerCase().contains(searchLower)) {
+                matches = true;
+            }
+
+            // Search in flags
+            if (profile.getFlagsText().toLowerCase().contains(searchLower)) {
+                matches = true;
+            }
+
+            if (matches) {
+                filteredList.add(profile);
+            }
+        }
+
+        master.setAll(filteredList);
+        lblResultCount.setText("Found: " + filteredList.size());
+    }
+
+    @FXML
+    private void clearFilters() {
+        txtSearch.clear();
+        refresh();
     }
 
 

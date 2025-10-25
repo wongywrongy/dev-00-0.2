@@ -41,6 +41,15 @@ public class StudentDatabase {
                 )
             """);
 
+            s.execute("""
+                CREATE TABLE IF NOT EXISTS student_comments (
+                  id INTEGER PRIMARY KEY AUTOINCREMENT,
+                  student_id INTEGER NOT NULL,
+                  content TEXT NOT NULL,
+                  created_at TEXT NOT NULL,
+                  FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE
+                )
+            """);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -155,20 +164,24 @@ public class StudentDatabase {
             DELETE FROM student_comments
             WHERE student_id = (?)
         """;
-        try {
-            Connection c = DriverManager.getConnection(URL);
-            PreparedStatement ps = c.prepareStatement(deleteFromStudentDatabase);
+        try (Connection c = DriverManager.getConnection(URL)) {
+            // Delete from student_comments first (child table)
+            try (PreparedStatement ps = c.prepareStatement(deleteFromStudentComments)) {
+                ps.setInt(1, studentID);
+                ps.executeUpdate();
+            }
 
-            ps.setInt(1, studentID);
-            ps.executeUpdate();
+            // Delete from student_languages (child table)
+            try (PreparedStatement ps = c.prepareStatement(deleteFromStudentLanguages)) {
+                ps.setInt(1, studentID);
+                ps.executeUpdate();
+            }
 
-            ps = c.prepareStatement(deleteFromStudentLanguages);
-            ps.setInt(1, studentID);
-            ps.executeUpdate();
-
-            ps = c.prepareStatement(deleteFromStudentComments);
-            ps.setInt(1, studentID);
-            ps.executeUpdate();
+            // Finally delete from students (parent table)
+            try (PreparedStatement ps = c.prepareStatement(deleteFromStudentDatabase)) {
+                ps.setInt(1, studentID);
+                ps.executeUpdate();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
