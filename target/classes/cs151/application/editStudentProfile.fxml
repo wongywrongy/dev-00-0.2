@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="cs151.application.EditStudentProfileController">
+
+    <fx:define>
+        <ToggleGroup fx:id="jobGroup"/>
+    </fx:define>
+
+    <top>
+        <ToolBar>
+            <items>
+                <Button text="← Back to List" onAction="#backToList"/>
+                <Separator orientation="VERTICAL"/>
+                <Label text="Edit Student Profile" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                <Pane HBox.hgrow="ALWAYS"/>
+                <Label fx:id="lblStudentName" text="Student: " style="-fx-font-weight: bold;"/>
+            </items>
+        </ToolBar>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true">
+            <content>
+                <VBox spacing="10">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+
+                    <!-- 2.1 Basic Information -->
+                    <TitledPane text="2.1 Basic Information" expanded="true">
+                        <content>
+                            <GridPane hgap="10" vgap="10">
+                                <padding>
+                                    <Insets top="10" right="10" bottom="10" left="10"/>
+                                </padding>
+                                <columnConstraints>
+                                    <ColumnConstraints halignment="RIGHT" minWidth="150"/>
+                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                </columnConstraints>
+                                <children>
+                                    <Label text="Full Name*:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                    <TextField fx:id="txtFullName" promptText="e.g., Jane Doe"
+                                               GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                                    <Label text="Academic Status*:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                    <ComboBox fx:id="cbAcademicStatus"
+                                              GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                                    <Label text="Current Job Status:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                                    <HBox spacing="10" GridPane.rowIndex="2" GridPane.columnIndex="1">
+                                        <children>
+                                            <RadioButton fx:id="rbEmployed" text="Employed" toggleGroup="$jobGroup"/>
+                                            <RadioButton fx:id="rbUnemployed" text="Not Employed" toggleGroup="$jobGroup"/>
+                                        </children>
+                                    </HBox>
+
+                                    <Label text="Job Details:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                                    <TextField fx:id="txtJobDetails" promptText="Company / Role"
+                                               GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                                </children>
+                            </GridPane>
+                        </content>
+                    </TitledPane>
+
+                    <!-- 2.2 Skills and Interests -->
+                    <TitledPane text="2.2 Skills and Interests" expanded="true">
+                        <content>
+                            <GridPane hgap="10" vgap="10">
+                                <padding>
+                                    <Insets top="10" right="10" bottom="10" left="10"/>
+                                </padding>
+                                <columnConstraints>
+                                    <ColumnConstraints halignment="RIGHT" minWidth="150"/>
+                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                    <ColumnConstraints halignment="RIGHT" minWidth="150"/>
+                                    <ColumnConstraints hgrow="ALWAYS"/>
+                                </columnConstraints>
+                                <children>
+                                    <Label text="Programming Languages*:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                                    <ListView fx:id="lvLanguages" prefHeight="140"
+                                              GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                                    <Label text="Databases*:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                                    <ListView fx:id="lvDatabases" prefHeight="140"
+                                              GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                                    <Label text="Preferred Role*:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                                    <ComboBox fx:id="cbPreferredRole"
+                                              GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                                </children>
+                            </GridPane>
+                        </content>
+                    </TitledPane>
+
+                    <!-- 2.3 Faculty Evaluation -->
+                    <TitledPane text="2.3 Faculty Evaluation" expanded="true">
+                        <content>
+                            <VBox spacing="6">
+                                <padding>
+                                    <Insets top="10" right="10" bottom="10" left="10"/>
+                                </padding>
+                                <children>
+                                    <Label text="Comments / Journal Entries:"/>
+                                    <TextArea fx:id="txtComments"
+                                              promptText="Enter faculty comments..."
+                                              wrapText="true"
+                                              prefRowCount="5"
+                                              prefWidth="600"/>
+                                </children>
+                            </VBox>
+                        </content>
+                    </TitledPane>
+
+                    <!-- 2.4 Future Services Flags -->
+                    <TitledPane text="2.4 Future Services Flags" expanded="false">
+                        <content>
+                            <HBox spacing="16">
+                                <padding>
+                                    <Insets top="10" right="10" bottom="10" left="10"/>
+                                </padding>
+                                <children>
+                                    <CheckBox fx:id="chkWhitelist" text="Whitelist"/>
+                                    <CheckBox fx:id="chkBlacklist" text="Blacklist"/>
+                                    <Label text="(mutually exclusive)"/>
+                                </children>
+                            </HBox>
+                        </content>
+                    </TitledPane>
+
+                    <!-- Actions -->
+                    <HBox spacing="10">
+                        <padding>
+                            <Insets top="5" right="5" bottom="5" left="5"/>
+                        </padding>
+                        <children>
+                            <Button text="Save Changes" onAction="#saveChanges"/>
+                            <Button text="Cancel" onAction="#cancelEdit"/>
+                        </children>
+                    </HBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
+    <padding>
+        <Insets top="6" right="6" bottom="6" left="6"/>
+    </padding>
+</BorderPane>

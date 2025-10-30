@@ -70,6 +70,7 @@ public class StudentDatabase {
         }
     }
 
+
     public static boolean addStudentProfile(String rawName,
                                             String academicStatus,
                                             boolean employed,
@@ -204,6 +205,95 @@ public class StudentDatabase {
         }
     }
 
+
+    public static boolean updateStudentProfile(int studentId,
+                                               String rawName,
+                                               String academicStatus,
+                                               boolean employed,
+                                               String jobDetails,
+                                               List<String> languages,
+                                               List<String> databases,
+                                               String preferredRole,
+                                               boolean whitelist,
+                                               boolean blacklist,
+                                               String newComment) {
+        String name = rawName == null ? "" : rawName.trim();
+        if (name.isEmpty()) return false;
+        if (whitelist && blacklist) return false;
+
+        String now = Instant.now().toString();
+        String dbCsv = String.join(",", databases);
+
+        final String updateStudent = """
+            UPDATE students
+            SET full_name = ?, academic_status = ?, employed = ?, job_details = ?, 
+                databases_known = ?, preferred_role = ?, whitelist = ?, blacklist = ?
+            WHERE id = ?
+        """;
+
+        try (Connection c = DriverManager.getConnection(URL)) {
+            c.setAutoCommit(false);
+            try (PreparedStatement ps = c.prepareStatement(updateStudent)) {
+                ps.setString(1, name);
+                ps.setString(2, academicStatus);
+                ps.setInt(3, employed ? 1 : 0);
+                ps.setString(4, employed ? (jobDetails == null ? "" : jobDetails.trim()) : "");
+                ps.setString(5, dbCsv);
+                ps.setString(6, preferredRole);
+                ps.setInt(7, whitelist ? 1 : 0);
+                ps.setInt(8, blacklist ? 1 : 0);
+                ps.setInt(9, studentId);
+                
+                int rowsUpdated = ps.executeUpdate();
+                if (rowsUpdated == 0) {
+                    c.rollback();
+                    return false;
+                }
+
+                // Update programming languages
+                try (PreparedStatement psLang = c.prepareStatement(
+                        "DELETE FROM student_languages WHERE student_id = ?")) {
+                    psLang.setInt(1, studentId);
+                    psLang.executeUpdate();
+                }
+
+                try (PreparedStatement psLang = c.prepareStatement(
+                        "INSERT INTO student_languages(student_id, language_name) VALUES (?, ?)")) {
+                    for (String lang : languages) {
+                        String L = lang == null ? "" : lang.trim();
+                        if (!L.isEmpty()) {
+                            psLang.setInt(1, studentId);
+                            psLang.setString(2, L);
+                            psLang.addBatch();
+                        }
+                    }
+                    psLang.executeBatch();
+                }
+
+                // Add new comment if provided
+                if (newComment != null && !newComment.isBlank()) {
+                    try (PreparedStatement psC = c.prepareStatement(
+                            "INSERT INTO student_comments(student_id, content, created_at) VALUES (?, ?, ?)")) {
+                        psC.setInt(1, studentId);
+                        psC.setString(2, newComment.trim());
+                        psC.setString(3, now);
+                        psC.executeUpdate();
+                    }
+                }
+
+                c.commit();
+                return true;
+            } catch (SQLException e) {
+                c.rollback();
+                return false;
+            } finally {
+                c.setAutoCommit(true);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     public static List<StudentProfile> getAllProfilesSorted() {
         List<StudentProfile> out = new ArrayList<>();

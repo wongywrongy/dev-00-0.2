@@ -157,6 +157,30 @@ public class StudentProfilesListController {
 
 
     @FXML
+    protected void editSelectedStudent(ActionEvent event) {
+        StudentProfile studentToEdit = tblProfiles.getSelectionModel().getSelectedItem();
+
+        if (studentToEdit == null) {
+            System.out.println("select a student to edit please");
+            return;
+        }
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("editStudentProfile.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
+            stage.setScene(scene);
+            stage.show();
+            
+            // Pass the selected student to the edit controller
+            EditStudentProfileController editController = fxmlLoader.getController();
+            editController.setStudentToEdit(studentToEdit);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     protected void deleteSelectedStudent(ActionEvent event) {
         StudentProfile studentToDelete = tblProfiles.getSelectionModel().getSelectedItem();
 
