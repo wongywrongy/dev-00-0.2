@@ -152,6 +152,13 @@ public class StudentDatabase {
         }
     }
 
+    /**
+     * This method deletes the student with the appropriate ID in the students database and deletes the
+     * corresponding entries in the student_comments/student_languages databases respectively.
+     * @param studentID The integer that is listed as id in the students database and
+     *                  listed as student_id for the student_languages/student_comments
+     *                  databases
+     */
     public static void deleteStudentInDatabase(int studentID) {
         String deleteFromStudentDatabase = """
             DELETE FROM students

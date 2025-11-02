@@ -13,7 +13,11 @@ public class MainController {
 
     private Stage stage;
 
-
+    /**
+     * Switches the page to the "define programming languages" screen.
+     * @param event The information of the action that took place.
+     * @throws IOException
+     */
     @FXML
     protected void defineProgrammingLanguagesClick(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("programmingLanguages.fxml"));
@@ -23,7 +27,11 @@ public class MainController {
         stage.show();
     }
 
-
+    /**
+     * Switches the page to the search student profiles screen.
+     * @param event The information of the action that took place.
+     * @throws IOException
+     */
     @FXML
     protected void defineStudentProfilesClick(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("studentProfiles.fxml"));
@@ -33,6 +41,11 @@ public class MainController {
         stage.show();
     }
 
+    /**
+     * Switches the page to the search student profiles screen.
+     * @param event The information of the action that took place.
+     * @throws IOException
+     */
     @FXML
     protected void searchStudentProfilesClick(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("studentProfilesList.fxml"));

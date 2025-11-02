@@ -180,17 +180,16 @@ public class StudentProfilesListController {
         }
     }
 
+    /**
+     * Deletes the student in the table of profiles and removes them from view.
+     * The function then calls to remove the student to be removed from the stored databases.
+     * @param event The information of the action that took place.
+     */
     @FXML
     protected void deleteSelectedStudent(ActionEvent event) {
         StudentProfile studentToDelete = tblProfiles.getSelectionModel().getSelectedItem();
 
-        if (studentToDelete == null) {
-            System.out.println("select a student to delete please");
-            return;
-        }
-
-        System.out.println("Student Name: " + studentToDelete.getFullName());
-        System.out.println("Student ID: " + studentToDelete.getId());
+        if (studentToDelete == null) return;
 
         tblProfiles.getItems().remove(studentToDelete);
 
