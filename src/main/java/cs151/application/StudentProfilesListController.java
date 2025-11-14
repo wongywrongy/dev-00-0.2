@@ -195,4 +195,22 @@ public class StudentProfilesListController {
 
         StudentDatabase.deleteStudentInDatabase(studentToDelete.getId());
     }
+
+    @FXML
+    protected void viewCommentsForSelectedStudent(ActionEvent event) {
+        StudentProfile selected = tblProfiles.getSelectionModel().getSelectedItem();
+
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("studentComments.fxml"));
+            Scene scene = new Scene(loader.load());
+            stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
+            stage.setScene(scene);
+            stage.show();
+
+            StudentCommentsController controller = loader.getController();
+            controller.setStudent(selected);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
