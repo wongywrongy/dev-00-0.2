@@ -54,4 +54,12 @@ public class MainController {
         stage.setScene(scene);
         stage.show();
     }
+
+    public void showReportsClick(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("showReports.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
 }

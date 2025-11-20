@@ -1,5 +1,8 @@
 package cs151.application;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
@@ -407,5 +410,71 @@ public class StudentDatabase {
             e.printStackTrace();
         }
         return out;
+    }
+
+    public static ObservableList<StudentProfile> getWhitelistedStudents() {
+        return getFlaggedStudents("whitelist");
+    }
+
+    public static ObservableList<StudentProfile> getBlacklistedStudents() {
+        return getFlaggedStudents("blacklist");
+    }
+
+    public static ObservableList<StudentProfile> getFlaggedStudents(String flag) {
+        if (!flag.equals("whitelist") && !flag.equals("blacklist")) return null;
+
+        String sql = "";
+        boolean whitelist;
+
+        if (flag.equals("whitelist")) {
+            sql = "SELECT * FROM students WHERE whitelist = 1 ORDER BY LOWER(TRIM(full_name)) ASC";
+            whitelist = true;
+        } else {
+            sql = "SELECT * FROM students WHERE blacklist = 1 ORDER BY LOWER(TRIM(full_name)) ASC";
+            whitelist = false;
+        }
+
+
+        ObservableList<StudentProfile> flaggedStudentsList = FXCollections.observableArrayList();
+
+        try {
+            Connection c = DriverManager.getConnection(URL);
+            Statement s = c.createStatement();
+            ResultSet rs = s.executeQuery(sql);
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String fullName = rs.getString("full_name");
+                String academic = rs.getString("academic_status");
+                boolean employed = rs.getInt("employed") == 1;
+                String job = rs.getString("job_details");
+                String dbCsv = rs.getString("databases_known");
+                String role = rs.getString("preferred_role");
+
+
+                List<String> langs = new ArrayList<>();
+                try (PreparedStatement ps = c.prepareStatement(
+                        "SELECT language_name FROM student_languages WHERE student_id=? ORDER BY LOWER(language_name)")) {
+                    ps.setInt(1, id);
+                    try (ResultSet r2 = ps.executeQuery()) {
+                        while (r2.next()) langs.add(r2.getString(1));
+                    }
+                }
+
+                List<String> dbs = dbCsv == null || dbCsv.isBlank()
+                        ? List.of()
+                        : Arrays.stream(dbCsv.split("\\s*,\\s*")).toList();
+
+
+                String latestComment = getLatestComment(c, id);
+
+                flaggedStudentsList.add(new StudentProfile(
+                        id, fullName, academic, employed, job, langs, dbs, role, whitelist, !whitelist, latestComment
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return flaggedStudentsList;
     }
 }

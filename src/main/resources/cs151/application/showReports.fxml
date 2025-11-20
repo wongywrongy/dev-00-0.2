@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs151.application.ShowReportsController">
+   <children>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToHome" text="Home" />
+      <TableView fx:id="tblProfiles" layoutY="52.0" prefHeight="500.0" prefWidth="1058.0">
+         <columns>
+            <TableColumn fx:id="colName" prefWidth="180" text="Full Name" />
+            <TableColumn fx:id="colAcademic" prefWidth="120" text="Academic Status" />
+            <TableColumn fx:id="colEmployed" prefWidth="95" text="Employed" />
+            <TableColumn fx:id="colJob" prefWidth="170" text="Job Details" />
+            <TableColumn fx:id="colLanguages" prefWidth="220" text="Languages" />
+            <TableColumn fx:id="colDatabases" prefWidth="170" text="Databases" />
+            <TableColumn fx:id="colRole" prefWidth="140" text="Preferred Role" />
+            <TableColumn fx:id="colComments" prefWidth="260" text="Latest Comment" />
+         </columns>
+      </TableView>
+      <RadioButton fx:id="showWhitelistedRadioButton" layoutX="110.0" layoutY="18.0" mnemonicParsing="false" onAction="#showWhitelisted" text="Show Whitelisted Students">
+         <toggleGroup>
+            <ToggleGroup fx:id="showReport" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="showBlacklistedRadioButton" layoutX="312.0" layoutY="18.0" mnemonicParsing="false" onAction="#showBlacklisted" text="Show Blacklisted Students" toggleGroup="$showReport" />
+   </children>
+</AnchorPane>
