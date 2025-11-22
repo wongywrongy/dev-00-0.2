@@ -56,7 +56,7 @@ public class MainController {
     }
 
     public void showReportsClick(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("showReports.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("showReportsList.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);

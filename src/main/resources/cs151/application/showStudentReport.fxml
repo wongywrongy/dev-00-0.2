@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="400.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs151.application.ShowStudentReportController">
+    <TitledPane expanded="true" layoutX="14.0" layoutY="64.0" text="2.1 Basic Information">
+        <content>
+            <GridPane hgap="10" prefHeight="147.0" prefWidth="369.0" vgap="10">
+                <padding>
+                    <Insets bottom="10" left="10" right="10" top="10" />
+                </padding>
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" minWidth="150" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+                <children>
+                    <Label text="Full Name*:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <TextField fx:id="txtFullName" disable="true" promptText="e.g., Jane Doe" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                    <Label text="Academic Status*:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <ComboBox fx:id="cbAcademicStatus" disable="true" prefHeight="26.0" prefWidth="189.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                    <Label text="Current Job Status:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <children>
+                            <RadioButton fx:id="rbEmployed" disable="true" text="Employed">
+                        <toggleGroup>
+                           <ToggleGroup fx:id="jobGroup" />
+                        </toggleGroup></RadioButton>
+                            <RadioButton fx:id="rbUnemployed" disable="true" text="Not Employed" toggleGroup="$jobGroup" />
+                        </children>
+                    </HBox>
+
+                    <Label text="Job Details:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                    <TextField fx:id="txtJobDetails" disable="true" promptText="Company / Role" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                </children>
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
+            </GridPane>
+        </content>
+    </TitledPane>
+   <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goToHome" text="Home" />
+</AnchorPane>

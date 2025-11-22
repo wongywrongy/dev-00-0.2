@@ -4,6 +4,7 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -11,11 +12,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ShowReportsController {
+public class ShowReportsListController {
     public TableView<StudentProfile> tblProfiles;
     public TableColumn<StudentProfile, String> colName;
     public TableColumn<StudentProfile, String> colAcademic;
@@ -62,5 +65,24 @@ public class ShowReportsController {
 
     public void showBlacklisted(ActionEvent actionEvent) {
         master.setAll(StudentDatabase.getBlacklistedStudents());
+    }
+
+    public void clickedTable(MouseEvent mouseEvent) throws IOException {
+        if (mouseEvent.getClickCount() != 2 || !mouseEvent.getButton().equals(MouseButton.PRIMARY)) return;
+
+//        System.out.println("Student Profile: " + tblProfiles.getSelectionModel().getSelectedItem().getFullName());
+
+        StudentProfile studentToShow = tblProfiles.getSelectionModel().getSelectedItem();
+
+        goToStudentProfilePage(mouseEvent, studentToShow);
+    }
+    public void goToStudentProfilePage(MouseEvent event, StudentProfile student) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("showStudentReport.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+        ShowStudentReportController controller = fxmlLoader.getController();
+        controller.updateStudentReportPage(student);
     }
 }
