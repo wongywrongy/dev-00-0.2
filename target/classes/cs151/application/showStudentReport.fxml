@@ -52,12 +52,24 @@
 
                             <Label text="Job Details:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                             <TextField fx:id="txtJobDetails" disable="true" promptText="Company / Role" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                              <Label text="Programming Languages:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                              <TextField fx:id="txtLanguages" disable="true" promptText="Comma-separated list" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                              <Label text="Databases:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                              <TextField fx:id="txtDatabases" disable="true" promptText="Comma-separated list" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                              <Label text="Preferred Role:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                              <TextField fx:id="txtPreferredRole" disable="true" promptText="e.g., Backend Engineer" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         </children>
                     <rowConstraints>
                        <RowConstraints />
                        <RowConstraints />
                        <RowConstraints />
                        <RowConstraints />
+                         <RowConstraints />
+                         <RowConstraints />
+                         <RowConstraints />
                     </rowConstraints>
                     </GridPane>
                 </content>
