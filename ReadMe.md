@@ -3,6 +3,14 @@
 # Version: 0.8
 
 # who did what:
+1. Anton: Made show report pages and functionality
+2. Kyle: Added comment viewing in show report pages and bug fixing
+3. Sofia:
+4. Viet: Fixed bugs, cleaned up code, and testing
+
+# Version: 0.8
+
+# who did what:
 1. Anton: Added more javadoc comments to functions.
 2. Kyle: Made the add comments page.
 3. Sofia:
@@ -67,4 +75,5 @@
 1. Anton: Software Overview
 2. Kyle: Use cases
 3. Sofia: Made all mockups
+
 4. Viet: Introduction (Wrote the objective of the program)
