@@ -36,6 +36,12 @@ public class ShowStudentReportController {
     private TableColumn<Comment, String> colDate;
     @FXML
     private TableColumn<Comment, String> colComment;
+    @FXML
+    private TextField txtLanguages;
+    @FXML
+    private TextField txtDatabases;
+    @FXML
+    private TextField txtPreferredRole;
 
     private ObservableList<Comment> comments = FXCollections.observableArrayList();
 
@@ -56,6 +62,9 @@ public class ShowStudentReportController {
         if (studentProfile.isEmployed()) rbEmployed.setSelected(true);
         else rbUnemployed.setSelected(true);
         txtJobDetails.setText(studentProfile.getJobDetails());
+        txtLanguages.setText(studentProfile.getLanguages() == null ? "" : studentProfile.getLanguagesCsv());
+        txtDatabases.setText(studentProfile.getDatabases() == null ? "" : studentProfile.getDatabasesCsv());
+        txtPreferredRole.setText(studentProfile.getPreferredRole() == null ? "" : studentProfile.getPreferredRole());
         
         // Load comments
         List<Comment> studentComments = StudentDatabase.getAllCommentsForStudentAsObjects(studentProfile.getId());
