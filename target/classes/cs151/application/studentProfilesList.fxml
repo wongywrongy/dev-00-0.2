@@ -69,11 +69,12 @@
                         <TableColumn fx:id="colComments" prefWidth="260" text="Latest Comment" />
                     </columns>
                 </TableView>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select a row and click a button below to edit or delete a student" wrappingWidth="400.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select a row and click a button below to edit or delete or add a comment for a student" wrappingWidth="600.0" />
             <HBox spacing="10">
                 <children>
-                    <Button mnemonicParsing="false" onAction="#editSelectedStudent" prefHeight="26.0" prefWidth="150.0" text="Edit Selected Student" />
-                    <Button mnemonicParsing="false" onAction="#deleteSelectedStudent" prefHeight="26.0" prefWidth="150.0" text="Delete Selected Student" />
+                    <Button mnemonicParsing="false" onAction="#editSelectedStudent" prefHeight="26.0" prefWidth="200.0" text="Edit Selected Student" />
+                    <Button mnemonicParsing="false" onAction="#deleteSelectedStudent" prefHeight="26.0" prefWidth="200.0" text="Delete Selected Student" />
+                    <Button mnemonicParsing="false" onAction="#viewCommentsForSelectedStudent" prefHeight="26.0" prefWidth="200.0" text="Add Comment Selected Student" />
                 </children>
             </HBox>
             </children>

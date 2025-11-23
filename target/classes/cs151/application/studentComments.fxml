@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="cs151.application.StudentCommentsController">
+
+    <top>
+        <ToolBar>
+            <items>
+                <Button text="Back to Profiles" onAction="#backToProfilesList"/>
+                <Label text="Student Comments"
+                       style="-fx-font-weight: bold; -fx-padding: 0 0 0 10;"/>
+            </items>
+        </ToolBar>
+    </top>
+
+    <center>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <children>
+                <Label fx:id="lblStudentName"
+                       style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+
+                <Label text="All comments (most recent first):"/>
+                <ListView fx:id="lstComments" prefHeight="250"/>
+
+                <Label text="Add a new comment:"/>
+                <TextArea fx:id="txtNewComment" prefRowCount="3" wrapText="true"/>
+
+                <HBox spacing="10">
+                    <children>
+                        <Button text="Add Comment" onAction="#addComment"/>
+                        <Label fx:id="lblStatus"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </center>
+
+    <padding>
+        <Insets top="6" right="6" bottom="6" left="6"/>
+    </padding>
+</BorderPane>

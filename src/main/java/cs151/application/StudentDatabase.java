@@ -251,6 +251,41 @@ public class StudentDatabase {
         return comments;
     }
 
+    public static List<Comment> getAllCommentsForStudentAsObjects(int studentId) {
+        List<Comment> comments = new ArrayList<>();
+
+        final String sql = """
+            SELECT created_at, content
+            FROM student_comments
+            WHERE student_id = ?
+            ORDER BY datetime(created_at) DESC
+        """;
+
+        try (Connection c = DriverManager.getConnection(URL);
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, studentId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    String createdAt = rs.getString(1);
+                    String content = rs.getString(2);
+
+                    String dateOnly = createdAt;
+                    if (createdAt != null) {
+                        int tPos = createdAt.indexOf('T');
+                        if (tPos > 0) {
+                            dateOnly = createdAt.substring(0, tPos);
+                        }
+                    }
+                    comments.add(new Comment(dateOnly, content));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return comments;
+    }
+
     public static boolean addNewCommentForStudent(int studentId, String commentText) {
         String content = commentText == null ? "" : commentText.trim();
         if (content.isEmpty()) {
