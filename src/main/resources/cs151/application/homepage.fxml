@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="260.0" prefWidth="552.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="cs151.application.MainController">
+<BorderPane prefHeight="260.0" prefWidth="552.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cs151.application.MainController">
 
     <top>
         <VBox spacing="6">
@@ -37,7 +37,12 @@
                         <Button onAction="#defineStudentProfilesClick" prefWidth="220" text="Define Student Profiles" />
                     </children>
                 </HBox>
-            <Button onAction="#searchStudentProfilesClick" mnemonicParsing="false" prefHeight="26.0" prefWidth="221.0" text="Search Student Profiles" />
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="12.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#searchStudentProfilesClick" prefWidth="260.0" text="Search Student Profiles" />
+                  <Button mnemonicParsing="false" onAction="#showReportsClick" prefHeight="26.0" prefWidth="222.0" text="Show Reports" />
+               </children>
+            </HBox>
             </children>
         </VBox>
     </center>

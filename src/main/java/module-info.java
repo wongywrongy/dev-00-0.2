@@ -6,6 +6,7 @@ module cs151.application {
     requires javafx.graphics;
     requires java.xml;
     requires java.sql;
+    requires javafx.base;
 
     opens cs151.application to javafx.fxml;
     exports cs151.application;
