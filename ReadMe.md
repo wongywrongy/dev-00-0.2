@@ -1,6 +1,6 @@
 # Name of application: Student Profile Manager
 
-# Version: 0.8
+# Version: 0.9
 
 # who did what:
 1. Anton: Made show report pages and functionality
@@ -77,3 +77,4 @@
 3. Sofia: Made all mockups
 
 4. Viet: Introduction (Wrote the objective of the program)
+
